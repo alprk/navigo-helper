@@ -21,10 +21,6 @@ puppeteer.use(StealthPlugin())
 
 // puppeteer usage as normal
 puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] }).then(async browser => {
-    console.log('[INFO] Go on the IDF Website page..')
-
-    // delay function that simulate random delay betwenn two values
-    const delay = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
     const page = await browser.newPage()
     await page.setViewport({ width: 1280, height: 800 });
@@ -38,18 +34,19 @@ puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sand
         downloadPath: downloadPath,
     });
 
+    console.log('[INFO] Go on the IDF Website page..')
+
+    // delay function that simulate random delay betwenn two values
+    const delay = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
     await page.goto('https://www.iledefrance-mobilites.fr/')
     await new Promise(resolve => setTimeout(resolve, delay(500, 1000)));
 
     await page.waitForSelector('.banner-button-accept', { visible: true });
     await page.click('.banner-button-accept');
 
-    // await page.screenshot({ path: 'debug.png', fullPage: true })
-
     await page.goto('https://mon-espace.iledefrance-mobilites.fr')
     await new Promise(resolve => setTimeout(resolve, delay(500, 1000)));
-
-    // await page.goto('https://connect.iledefrance-mobilites.fr/')
 
     await page.waitForSelector('#id-Mail', { visible: true });
     await page.waitForSelector('#id-pwd', { visible: true });
@@ -59,7 +56,7 @@ puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sand
 
     const { IDF_MOBILITE_USERNAME, IDF_MOBILITE_PASSWORD } = process.env;
 
-    // Simulate a human (between 100ms and 200ms between each typed car)
+    // Simulate a human typing (between 100ms and 200ms between each typed car)
     await page.type('#id-Mail', IDF_MOBILITE_USERNAME, { delay: delay(100,200) });
 
     // wait before typing in the password field
@@ -74,7 +71,7 @@ puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sand
 
     await page.screenshot({ path: `${screenShotDirectory}/step2_view_filled_form.png`, fullPage: true })
 
-    // wait before submitting the form
+    // Simulate a human and wait a little bit
     await new Promise(resolve => setTimeout(resolve, delay(800, 1600)));
 
     // Click on Login !
@@ -110,7 +107,7 @@ puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sand
 
     console.log('[INFO] Authentication form submitted');
 
-    // Simulate a human
+    // Simulate a human and wait a little bit
     await new Promise(resolve => setTimeout(resolve, delay(1500, 2000)));
 
     await page.screenshot({ path: `${screenShotDirectory}/step5_view_idf_mobilite_homepage.png`, fullPage: true });
@@ -120,13 +117,14 @@ puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sand
         timeout: 6000,
     });
 
-    // await page.screenshot({ path: 'step5_view_idf_mobilite_homepage.png', fullPage: true });
+    // Wait navigation succes
+    await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
     console.log('[OK] IDF Mobilite Homepage reached');
 
     await page.goto('https://www.jegeremacartenavigo.iledefrance-mobilites.fr');
 
-    // Simulate a human
+    // Simulate a human and wait a little bit
     await new Promise(resolve => setTimeout(resolve, delay(1500, 2000)));
 
     await page.waitForSelector('li.list-group-item.link-bloc');
