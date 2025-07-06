@@ -112,13 +112,7 @@ puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sand
 
     await page.screenshot({ path: `${screenShotDirectory}/step5_view_idf_mobilite_homepage.png`, fullPage: true });
 
-    await page.waitForSelector('.content-bandeau', {
-        visible: true,
-        timeout: 6000,
-    });
-
-    // Wait navigation succes
-    await page.waitForNavigation({ waitUntil: 'networkidle2' });
+    await page.waitForSelector('.content-bandeau', { visible: true });
 
     console.log('[OK] IDF Mobilite Homepage reached');
 
