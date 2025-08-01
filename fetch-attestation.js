@@ -42,8 +42,8 @@ puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sand
     await page.goto('https://www.iledefrance-mobilites.fr/')
     await new Promise(resolve => setTimeout(resolve, delay(500, 1000)));
 
-    await page.waitForSelector('.banner-button-accept', { visible: true });
-    await page.click('.banner-button-accept');
+    await page.waitForSelector('#axeptio_btn_acceptAll', { visible: true });
+    await page.click('#axeptio_btn_acceptAll');
 
     await page.goto('https://mon-espace.iledefrance-mobilites.fr')
     await new Promise(resolve => setTimeout(resolve, delay(500, 1000)));

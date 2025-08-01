@@ -42,4 +42,6 @@ RUN npm install
 
 COPY . .
 
+RUN rm output/screenshots/* output/attestation.pdf || true
+
 CMD ["node", "fetch-attestation.js"]
