@@ -80,7 +80,8 @@ puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sand
     console.log('[OK] Login form submitted');
 
     // Wait navigation succes
-    await page.waitForNavigation({ waitUntil: 'networkidle2' });
+    // Seems to cause some issues
+    // await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
     await page.screenshot({ path: `${screenShotDirectory}/step3_view_submitted_form.png`, fullPage: true });
 
