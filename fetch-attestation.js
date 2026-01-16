@@ -80,8 +80,11 @@ puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sand
     console.log('[OK] Login form submitted');
 
     // Wait navigation succes
-    // Seems to cause some issues
+    // Seems to cause some issues in this case ?
     // await page.waitForNavigation({ waitUntil: 'networkidle2' });
+
+    // So wait 6 sec to ensure the page is loaded...
+    await new Promise(resolve => setTimeout(resolve, 6000));
 
     await page.screenshot({ path: `${screenShotDirectory}/step3_view_submitted_form.png`, fullPage: true });
 
