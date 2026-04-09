@@ -66,7 +66,8 @@ export async function getValidationCode() {
                 const mostRecentMatchingEmail = emails[emails.length - 1];
 
                 if (mostRecentMatchingEmail && mostRecentMatchingEmail.text) {
-                    const regex = /\b\d{5}\b/;
+                    // match 6 digits in a word boundary (\b)
+                    const regex = /\b\d{6}\b/;
 
                     return mostRecentMatchingEmail.text.match(regex)[0];
                 }

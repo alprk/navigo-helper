@@ -90,8 +90,8 @@ puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sand
 
     console.log('[INFO] Fetch IDF Mobilite authentication code in email...');
 
-    // wait between 10 and 20sec that the email arrives...
-    await new Promise(resolve => setTimeout(resolve, delay(10000, 20000)));
+    // wait 20sec that the email arrives...
+    await new Promise(resolve => setTimeout(resolve, 15000));
 
     const code = await getValidationCode();
 
@@ -108,6 +108,9 @@ puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sand
 
     // Wait navigation succes
     await page.waitForNavigation({ waitUntil: 'networkidle2' });
+
+    // wait 5sec to be sure page is loaded
+    // await new Promise(resolve => setTimeout(resolve, 5000));
 
     console.log('[INFO] Authentication form submitted');
 
