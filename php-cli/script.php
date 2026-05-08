@@ -36,7 +36,7 @@ $messages['to'] = 'HO.SBLANC@cma-cgm.com';
 $messages['subject'] = 'Navigo ' . $moisFrancais[$month] . ' - Alexandre PAILLARES';
 $messages['body'] = <<<TEXT
 Bonjour Sophie,
-Tu trouveras en pièce jointe mon attestation navigo pour le mois $moisFrancaisPhrase[$month]
+Tu trouveras en pièce jointe mon attestation Navigo pour le mois $moisFrancaisPhrase[$month]
 Cordialement,
 TEXT
 ;
